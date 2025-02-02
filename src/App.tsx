@@ -1,5 +1,6 @@
+/* Archivo: src/App.tsx */
 import { CartProvider } from './context/CartContext';
-import { Header } from './components/Header/header';
+import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
 import { products } from './data/products';
 import { ProductCard } from './components/ProductCard/ProductCard';
@@ -13,8 +14,8 @@ function App() {
         
         <main className="main-content">
           <section className="hero-section">
-            <h1>Las mejores zapatillas del mercado</h1>
-            <p>Encuentra tu par perfecto</p>
+            <h1>Descubre la Exclusividad</h1>
+            <p>Encuentra las zapatillas que definen tu estilo</p>
           </section>
 
           <div className="products-grid">
