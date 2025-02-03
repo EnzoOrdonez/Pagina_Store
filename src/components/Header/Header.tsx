@@ -1,58 +1,90 @@
-import React, { useState } from 'react';
-import { Navbar, Container, Nav, Badge, Form, FormControl, Button } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
-import { useCart } from '../../context/CartContext';
-import { FaShoppingCart } from 'react-icons/fa';
+// src/components/Header/Header.tsx
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { FaUser, FaHeart, FaShoppingCart } from 'react-icons/fa';
 import './Header.css';
 
-export const Header = () => {
-  const { cart } = useCart();
-  const [search, setSearch] = useState('');
-  const navigate = useNavigate();
-
-  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Navegar a la página de inicio con el query de búsqueda
-    navigate(`/?q=${search}`);
-  };
-
+const Header = () => {
   return (
-    <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
-      <Container className="nav-container">
-        <Navbar.Brand as={Link} to="/" className="logo">SNEAKERS</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto nav-links">
-            <Nav.Link as={Link} to="/" className="nav-link">Inicio</Nav.Link>
-            <Nav.Link as={Link} to="/cart" className="nav-link">Carrito</Nav.Link>
-            <Nav.Link as={Link} to="/checkout" className="nav-link">Checkout</Nav.Link>
-            <Nav.Link as={Link} to="/terminos" className="nav-link">Términos</Nav.Link>
-            <Nav.Link as={Link} to="/privacidad" className="nav-link">Privacidad</Nav.Link>
-            <Nav.Link as={Link} to="/contacto" className="nav-link">Contacto</Nav.Link>
-          </Nav>
-          <Form className="d-flex form-search" onSubmit={handleSearchSubmit}>
-            <FormControl
-              type="search"
-              placeholder="Buscar zapatillas"
-              className="me-2"
-              aria-label="Search"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-            <Button variant="outline-light" type="submit">Buscar</Button>
-          </Form>
-          <Nav className="ms-3">
-            <Nav.Link as={Link} to="/cart" className="cart-link">
-              <FaShoppingCart size={20} />
-              {cart && cart.length > 0 && (
-                <Badge pill bg="accent" className="cart-count">
-                  {cart.length}
-                </Badge>
-              )}
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <header className="header">
+      {/* Top Bar con enlaces secundarios */}
+      <div className="top-bar">
+        <div className="top-bar-container">
+          <div className="top-links">
+            <Link to="/ayuda">Ayuda</Link>
+            <Link to="/pedidos-devoluciones">Pedidos y devoluciones</Link>
+            <Link to="/politicas">Políticas</Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Bar */}
+      <div className="main-bar">
+        <div className="main-bar-container">
+          {/* Izquierda: Logo */}
+          <div className="left-section">
+            <Link to="/" className="logo">AKSE</Link>
+          </div>
+
+          {/* Centro: Menú principal */}
+          <nav className="center-nav">
+            <ul className="nav-list">
+              <li className="nav-item">
+                <span>Calzado</span>
+                <div className="dropdown">
+                  <Link to="/calzado/urbanas">Urbanas</Link>
+                  <Link to="/calzado/deportivas">Deportivas</Link>
+                  <Link to="/calzado/formales">Formales</Link>
+                </div>
+              </li>
+              <li className="nav-item">
+                <span>Hombres</span>
+                <div className="dropdown">
+                  <Link to="/hombres/urbanas">Urbanas</Link>
+                  <Link to="/hombres/deportivas">Deportivas</Link>
+                  <Link to="/hombres/correr">Para Correr</Link>
+                </div>
+              </li>
+              <li className="nav-item">
+                <span>Mujeres</span>
+                <div className="dropdown">
+                  <Link to="/mujeres/urbanas">Urbanas</Link>
+                  <Link to="/mujeres/deportivas">Deportivas</Link>
+                  <Link to="/mujeres/correr">Para Correr</Link>
+                </div>
+              </li>
+              <li className="nav-item">
+                <span>Niños</span>
+                <div className="dropdown">
+                  <Link to="/ninos/urbanas">Urbanas</Link>
+                  <Link to="/ninos/deportivas">Deportivas</Link>
+                </div>
+              </li>
+              <li className="nav-item">
+                <span>Outlet</span>
+                <div className="dropdown">
+                  <Link to="/outlet/descuentos">Descuentos</Link>
+                  <Link to="/outlet/ofertas">Ofertas</Link>
+                </div>
+              </li>
+            </ul>
+          </nav>
+
+          {/* Derecha: Buscador e íconos */}
+          <div className="right-section">
+            <div className="search-container">
+              <input type="text" placeholder="Buscar" />
+            </div>
+            <div className="icon-group">
+              <Link to="/cuenta" className="icon"><FaUser /></Link>
+              <Link to="/favoritos" className="icon"><FaHeart /></Link>
+              <Link to="/cart" className="icon"><FaShoppingCart /></Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
   );
 };
+
+export default Header;

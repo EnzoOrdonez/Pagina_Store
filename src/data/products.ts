@@ -1,3 +1,4 @@
+// src/data/products.ts
 export interface Product {
   id: number;
   name: string;
@@ -35,3 +36,5 @@ export const products: Product[] = [
     sizes: ['US 6', 'US 7', 'US 8', 'US 9']
   },
 ];
+
+export default products

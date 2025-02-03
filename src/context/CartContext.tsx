@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+// src/context/CartContext.tsx
+import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { Product } from '../data/products';
 
 interface CartContextType {
@@ -12,11 +13,20 @@ interface CartContextType {
 const CartContext = createContext<CartContextType>({} as CartContextType);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [cart, setCart] = useState<Product[]>([]);
+  const [cart, setCart] = useState<Product[]>(() => {
+    const storedCart = localStorage.getItem('akse_cart');
+    return storedCart ? JSON.parse(storedCart) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('akse_cart', JSON.stringify(cart));
+  }, [cart]);
 
   const addToCart = (product: Product) => {
     setCart(prevCart => {
-      const existingItem = prevCart.find(item => item.id === product.id && item.selectedSize === product.selectedSize);
+      const existingItem = prevCart.find(
+        item => item.id === product.id && item.selectedSize === product.selectedSize
+      );
       if (existingItem) {
         return prevCart.map(item =>
           (item.id === product.id && item.selectedSize === product.selectedSize)
@@ -30,7 +40,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const removeFromCart = (productId: number, selectedSize?: string) => {
-    setCart(prevCart => prevCart.filter(item => !(item.id === productId && (selectedSize ? item.selectedSize === selectedSize : true))));
+    setCart(prevCart =>
+      prevCart.filter(item => !(item.id === productId && (selectedSize ? item.selectedSize === selectedSize : true)))
+    );
   };
 
   const updateQuantity = (productId: number, selectedSize: string | undefined, quantity: number) => {
@@ -44,7 +56,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     );
   };
 
-  const cartTotal = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+  const cartTotal = cart.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
 
   return (
     <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, cartTotal }}>

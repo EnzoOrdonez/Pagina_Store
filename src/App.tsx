@@ -1,7 +1,7 @@
 /* Archivo: src/App.tsx */
 import { CartProvider } from './context/CartContext';
-import { Header } from './components/Header/Header';
-import { Footer } from './components/Footer/Footer';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 import { products } from './data/products';
 import { ProductCard } from './components/ProductCard/ProductCard';
 import './App.css';

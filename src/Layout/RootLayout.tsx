@@ -1,9 +1,11 @@
+// src/Layout/RootLayout.tsx
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import { Header } from '../components/Header/Header';
-import { Footer } from '../components/Footer/Footer';
+import Header from '../components/Header/Header';
+import Footer from '../components/Footer/Footer';
+import '../App.css';
 
-export const RootLayout = () => {
+const RootLayout = () => {
   return (
     <>
       <Header />
@@ -12,3 +14,5 @@ export const RootLayout = () => {
     </>
   );
 };
+
+export default RootLayout;

@@ -1,3 +1,4 @@
+// src/Pages/Checkout.tsx
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { Container, Form, Button } from 'react-bootstrap';
@@ -11,9 +12,9 @@ export const Checkout = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Aquí se simula el procesamiento de pago
+    // Simulación de procesamiento de pago
     alert('¡Orden completada! Gracias por tu compra.');
-    // En una implementación real se vaciaría el carrito y se registraría la orden
+    // Aquí se vaciaría el carrito y se redirigiría
     navigate('/');
   };
 
@@ -63,3 +64,5 @@ export const Checkout = () => {
     </Container>
   );
 };
+
+export default Checkout

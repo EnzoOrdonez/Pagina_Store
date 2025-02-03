@@ -1,8 +1,10 @@
-import { useState } from 'react';
+// src/components/ProductCard/ProductCard.tsx
+import React, { useState } from 'react';
 import { Product } from '../../data/products';
 import { useCart } from '../../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import './ProductCard.css';
+import ProductDetails from '../../Pages/ProductDetails';
 
 interface ProductCardProps {
   product: Product;
@@ -20,6 +22,8 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       return;
     }
     addToCart({ ...product, selectedSize });
+    // Aquí se podría utilizar un toast para feedback
+    alert('Producto añadido al carrito.');
   };
 
   const goToDetails = () => {
@@ -28,18 +32,14 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <div className="product-card" onClick={goToDetails}>
-      <img
-        src={product.image}
-        alt={product.name}
-        className="product-image"
-      />
+      <img src={product.image} alt={product.name} className="product-image" />
       <div className="product-info">
         <h3 className="product-name">{product.name}</h3>
         <p className="product-description">{product.description}</p>
         <div className="size-selector">
           {product.sizes.map(size => (
-            <button 
-              key={size} 
+            <button
+              key={size}
               className={`size-button ${selectedSize === size ? 'selected' : ''}`}
               onClick={(e) => {
                 e.stopPropagation();
@@ -52,10 +52,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         </div>
         <div className="product-footer">
           <span className="product-price">${product.price}</span>
-          <button 
-            onClick={(e) => handleAddToCart(e)}
-            className="add-to-cart-button"
-          >
+          <button onClick={(e) => handleAddToCart(e)} className="add-to-cart-button">
             Añadir al carrito
           </button>
         </div>
@@ -63,3 +60,6 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     </div>
   );
 };
+
+
+export default ProductDetails
